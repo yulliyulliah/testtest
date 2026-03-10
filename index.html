@@ -2,202 +2,231 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>CORE-Commerce Admin AX Dashboard (Anonymous Demo)</title>
+    <title>CORE-Commerce Advanced AX Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        body { font-family: 'Pretendard', sans-serif; background-color: #f1f5f9; color: #1e293b; }
-        .card { background: white; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .card:hover { transform: translateY(-2px); }
-        .ai-sidebar { background: #ffffff; border-left: 1px solid #e2e8f0; width: 400px; box-shadow: -10px 0 30px rgba(0,0,0,0.02); }
-        .nav-tab { cursor: pointer; padding: 10px 20px; border-bottom: 2px solid transparent; font-size: 14px; font-weight: 500; color: #64748b; }
-        .nav-tab.active { border-bottom: 2px solid #4f46e5; color: #4f46e5; }
+        body { font-family: 'Pretendard', sans-serif; background-color: #f4f7fa; color: #334155; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .nav-link { cursor: pointer; padding: 14px 20px; color: #64748b; border-bottom: 3px solid transparent; transition: 0.3s; font-size: 13px; font-weight: 600; white-space: nowrap; }
+        .nav-link.active { border-bottom: 3px solid #4f46e5; color: #4f46e5; }
+        .card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+        .metric-up { color: #10b981; font-size: 11px; font-weight: 700; }
+        .metric-down { color: #ef4444; font-size: 11px; font-weight: 700; }
+        .ai-label { background: linear-gradient(90deg, #4f46e5, #818cf8); color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
     </style>
 </head>
-<body class="flex min-h-screen">
+<body class="flex">
 
-    <main class="flex-1 p-8 overflow-y-auto">
+    <main class="flex-1 p-8 h-screen overflow-y-auto">
         <div class="flex justify-between items-center mb-8">
             <div>
-                <h1 class="text-2xl font-black tracking-tight text-slate-900 italic">CORE-ADMIN <span class="text-indigo-600">AX</span></h1>
-                <p class="text-sm text-slate-500 font-medium">관리자 전용 판매자 다각 분석 시스템 (Public Demo)</p>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">CORE-COMMERCE <span class="text-indigo-600 italic">AX PRO</span></h1>
+                <p class="text-xs text-slate-400 font-bold mt-1 uppercase tracking-widest">Seller Growth & Strategy Management</p>
             </div>
             <div class="flex gap-3">
-                <button class="bg-white border px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:bg-slate-50">📁 엑셀 다운로드</button>
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md hover:bg-indigo-700">🔄 데이터 동기화</button>
-            </div>
-        </div>
-
-        <div class="card p-4 mb-8 flex flex-wrap gap-4 items-center">
-            <div class="flex items-center gap-2 bg-slate-100 px-3 py-2 rounded-lg">
-                <i class="fas fa-calendar text-slate-400"></i>
-                <select class="bg-transparent text-sm font-bold outline-none"><option>2026-03-03 ~ 2026-03-09</option></select>
-            </div>
-            <div class="flex items-center gap-2 bg-white border px-3 py-1.5 rounded-lg">
-                <span class="text-xs font-bold text-gray-400">판매자 ID</span>
-                <input type="text" value="000" class="w-12 text-sm font-bold outline-none bg-transparent">
-            </div>
-            <select class="border p-2 rounded-lg text-sm bg-white min-w-[120px]"><option>A 판매자 그룹</option></select>
-            <select class="border p-2 rounded-lg text-sm bg-white min-w-[120px]"><option>직매입 상품군</option></select>
-            <select class="border p-2 rounded-lg text-sm bg-white min-w-[120px]"><option>광고 진행건 전체</option></select>
-            <button class="ml-auto bg-slate-800 text-white px-6 py-2 rounded-lg text-sm font-bold">검색</button>
-        </div>
-
-        <div class="grid grid-cols-4 gap-6 mb-8">
-            <div class="card p-5">
-                <p class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">총 거래액 (GMV)</p>
-                <h3 class="text-2xl font-black">₩000,000,000</h3>
-                <p class="text-xs text-indigo-500 font-bold mt-2">▲ 0.0% vs Last Week</p>
-            </div>
-            <div class="card p-5">
-                <p class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">영역별 전환 거래액</p>
-                <h3 class="text-2xl font-black">₩000,000,000</h3>
-                <p class="text-xs text-emerald-500 font-bold mt-2">전환율 0.00%</p>
-            </div>
-            <div class="card p-5">
-                <p class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">마케팅 비용 소진율</p>
-                <h3 class="text-2xl font-black">0,000건</h3>
-                <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3"><div class="bg-orange-500 h-full w-[80%] rounded-full"></div></div>
-            </div>
-            <div class="card p-5">
-                <p class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">신규 vs 기존 고객</p>
-                <div class="flex justify-between items-end">
-                    <h3 class="text-2xl font-black">00:00</h3>
-                    <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-500 font-bold">RETENTION</span>
+                <div class="flex items-center bg-white border px-3 py-2 rounded-xl text-sm font-bold shadow-sm">
+                    <span class="text-slate-400 mr-2">Seller ID</span>
+                    <input type="text" value="000" class="w-10 outline-none">
                 </div>
+                <button class="bg-indigo-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg hover:bg-indigo-700 transition-all">전략 분석 실행</button>
             </div>
         </div>
 
-        <div class="flex border-b mb-6 space-x-2">
-            <div class="nav-tab active">유입/주문 경로 분석</div>
-            <div class="nav-tab">키워드/검색 현황</div>
-            <div class="nav-tab">고객 인구통계</div>
-            <div class="nav-tab">관심 상품/주문 현황</div>
+        <div class="flex border-b border-gray-200 mb-8 bg-white px-6 rounded-t-2xl shadow-sm overflow-x-auto">
+            <div class="nav-link active" onclick="switchTab(event, 'tab1')">판매 현황 (Growth)</div>
+            <div class="nav-link" onclick="switchTab(event, 'tab2')">유입/채널 분석</div>
+            <div class="nav-link" onclick="switchTab(event, 'tab3')">구매자/인구통계</div>
+            <div class="nav-link" onclick="switchTab(event, 'tab4')">경쟁력/이탈 분석</div>
+            <div class="nav-link" onclick="switchTab(event, 'tab5')">운영/리스크 관리</div>
+            <div class="nav-link" onclick="switchTab(event, 'tab6')">광고 효율(ROAS)</div>
         </div>
 
-        <div class="grid grid-cols-12 gap-6 mb-8">
-            <div class="col-span-8 card p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-black text-slate-700">시간대별 트래픽 및 구매 전환 현황</h3>
-                    <div class="flex gap-3 text-[10px] font-bold">
-                        <span class="text-indigo-500">● 유입수</span>
-                        <span class="text-emerald-500">● 전환율</span>
+        <div id="tab-container">
+            
+            <div id="tab1" class="tab-content active space-y-6">
+                <div class="grid grid-cols-4 gap-4 text-sm">
+                    <div class="card">
+                        <p class="text-gray-400 font-bold text-[10px] uppercase mb-1">총 거래액 (GMV)</p>
+                        <h2 class="text-2xl font-black">₩0.0억</h2>
+                        <div class="mt-2 flex gap-2">
+                            <span class="metric-up">WoW ▲0%</span> <span class="metric-up">MoM ▲0%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <p class="text-gray-400 font-bold text-[10px] uppercase mb-1">매출액 (Net Rev)</p>
+                        <h2 class="text-2xl font-black">₩0,000만</h2>
+                        <span class="text-[10px] text-indigo-500 font-bold">수수료 수익 00% 반영</span>
+                    </div>
+                    <div class="card">
+                        <p class="text-gray-400 font-bold text-[10px] uppercase mb-1">비대면/직접 구매 비중</p>
+                        <h2 class="text-2xl font-black">85:15</h2>
+                        <span class="text-[10px] text-slate-400 font-bold italic">Channel Data Mixed</span>
+                    </div>
+                    <div class="card">
+                        <p class="text-gray-400 font-bold text-[10px] uppercase mb-1">쿠폰 소진율 (공통/단독)</p>
+                        <h2 class="text-2xl font-black">00.0%</h2>
+                        <div class="w-full bg-slate-100 h-1 rounded-full mt-2"><div class="bg-indigo-500 h-full w-[45%]"></div></div>
                     </div>
                 </div>
-                <div class="h-[300px]"><canvas id="trafficChart"></canvas></div>
-            </div>
-            <div class="col-span-4 card p-6">
-                <h3 class="font-black text-slate-700 mb-6">유입채널별 비중</h3>
-                <div class="h-[240px] flex justify-center"><canvas id="sourceChart"></canvas></div>
-                <div class="mt-4 space-y-2">
-                    <div class="flex justify-between text-xs"><span class="text-slate-500">다이렉트 검색</span><span class="font-bold">00.0%</span></div>
-                    <div class="flex justify-between text-xs"><span class="text-slate-500">외부 광고</span><span class="font-bold">00.0%</span></div>
+                <div class="card h-[350px]">
+                    <h3 class="font-bold text-slate-700 mb-4">기간별 판매 트렌드 (일간/주간/월간)</h3>
+                    <canvas id="growthChart"></canvas>
                 </div>
             </div>
-        </div>
 
-        <div class="grid grid-cols-2 gap-6">
-            <div class="card p-6">
-                <h3 class="font-black text-slate-700 mb-4 italic underline decoration-indigo-300">실시간 유입 키워드 TOP 5</h3>
-                <table class="w-full text-sm text-left">
-                    <thead class="text-slate-400 border-b font-medium uppercase">
-                        <tr><th class="pb-2">키워드</th><th class="pb-2 text-right">유입수</th><th class="pb-2 text-right">유입상품수</th></tr>
-                    </thead>
-                    <tbody class="divide-y text-slate-600 font-bold">
-                        <tr><td class="py-3">가상의 검색어 A</td><td class="text-right">0,000</td><td class="text-right">000</td></tr>
-                        <tr><td class="py-3">가상의 검색어 B</td><td class="text-right">0,000</td><td class="text-right">000</td></tr>
-                        <tr><td class="py-3">가상의 검색어 C</td><td class="text-right">0,000</td><td class="text-right">000</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card p-6">
-                <h3 class="font-black text-slate-700 mb-4">운영 효율 리포트 요약</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
-                        <div><p class="text-xs text-slate-400 font-bold">관심 상품 등록</p><p class="font-black text-slate-700">추가 0,000건</p></div>
-                        <i class="fas fa-bookmark text-indigo-400"></i>
+            <div id="tab2" class="tab-content space-y-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="card">
+                        <h3 class="font-bold mb-4">시간대별 유입/주문 현황</h3>
+                        <div class="h-[300px]"><canvas id="timeChart"></canvas></div>
                     </div>
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
-                        <div><p class="text-xs text-slate-400 font-bold">비대면 주문 비중</p><p class="font-black text-slate-700">전체 주문의 00.0%</p></div>
-                        <i class="fas fa-truck text-slate-400"></i>
+                    <div class="card">
+                        <h3 class="font-bold mb-4">유입경로 및 키워드 기여도</h3>
+                        <div class="h-[300px]"><canvas id="sourceChart"></canvas></div>
                     </div>
                 </div>
             </div>
+
+            <div id="tab4" class="tab-content space-y-6">
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="card col-span-2">
+                        <h3 class="font-bold mb-6">구매 전환 단계별 이탈 분석 (Funnel)</h3>
+                                                <div class="flex justify-between items-center px-10">
+                            <div class="text-center"><p class="text-[10px] text-gray-400 font-bold">진입(노출)</p><p class="font-black">100%</p></div>
+                            <i class="fas fa-chevron-right text-gray-200"></i>
+                            <div class="text-center"><p class="text-[10px] text-gray-400 font-bold">체류(상세)</p><p class="font-black">45%</p></div>
+                            <i class="fas fa-chevron-right text-gray-200"></i>
+                            <div class="text-center"><p class="text-[10px] text-gray-400 font-bold">결제시도</p><p class="font-black text-red-500">12%</p></div>
+                            <i class="fas fa-chevron-right text-gray-200"></i>
+                            <div class="text-center"><p class="text-[10px] text-gray-400 font-bold">완료</p><p class="font-black">4.2%</p></div>
+                        </div>
+                        <div class="mt-8 p-4 bg-red-50 rounded-xl border border-red-100">
+                            <p class="text-xs text-red-600 font-bold"><i class="fas fa-exclamation-circle mr-1"></i> 이탈 지점 분석: 상세페이지 로딩 속도 및 배송비 허들이 주요 이탈 원인으로 감지됨.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="font-bold mb-4">카테고리 내 경쟁력</h3>
+                        <div class="space-y-4 text-sm font-medium">
+                            <div class="flex justify-between"><span>시장 점유율(MS)</span><span class="font-black text-indigo-600">12.5%</span></div>
+                            <div class="flex justify-between"><span>최저가 대응률</span><span class="font-black text-emerald-500">98.2%</span></div>
+                            <hr>
+                            <p class="text-[11px] text-gray-400 font-bold uppercase">리뷰 분석 (부정요소)</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-100 px-2 py-1 rounded text-[10px]">#배송지연(High)</span>
+                                <span class="bg-gray-100 px-2 py-1 rounded text-[10px]">#패키징파손</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab5" class="tab-content space-y-6">
+                <div class="grid grid-cols-3 gap-6 text-sm">
+                    <div class="card text-center">
+                        <p class="text-gray-400 font-bold text-[10px] mb-2 uppercase">평균 배송 소요 시간</p>
+                        <h2 class="text-3xl font-black italic">1.2<span class="text-lg">일</span></h2>
+                        <p class="text-[10px] text-emerald-500 font-bold mt-2">CATEGORY TOP 5%</p>
+                    </div>
+                    <div class="card text-center">
+                        <p class="text-gray-400 font-bold text-[10px] mb-2 uppercase">반품/교환 발생률</p>
+                        <h2 class="text-3xl font-black italic text-red-500">0.0<span class="text-lg">%</span></h2>
+                        <p class="text-[10px] text-slate-400 font-bold mt-2">In normal range</p>
+                    </div>
+                    <div class="card text-center">
+                        <p class="text-gray-400 font-bold text-[10px] mb-2 uppercase">누적 페널티 점수</p>
+                        <h2 class="text-3xl font-black italic">0<span class="text-lg">점</span></h2>
+                        <p class="text-[10px] text-slate-400 font-bold mt-2">Clean Seller Status</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <aside class="ai-sidebar flex flex-col shadow-2xl">
-        <div class="p-8 border-b bg-indigo-50/30">
-            <div class="flex items-center gap-3 mb-2">
-                <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center text-white"><i class="fas fa-terminal text-sm"></i></div>
-                <h2 class="text-lg font-black text-slate-800 tracking-tight text-sm">CORE-AI MD</h2>
+    <aside class="ai-sidebar flex flex-col shadow-2xl overflow-hidden">
+        <div class="p-8 bg-slate-900 text-white">
+            <div class="flex items-center gap-2">
+                <span class="ai-label">AI PRO</span>
+                <h2 class="text-sm font-black tracking-widest uppercase">Consulting Engine</h2>
             </div>
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Autonomous Data Logic</p>
+            <p class="text-[10px] text-slate-500 mt-2 font-bold uppercase tracking-tighter">Powered by CORE-AX Autonomous Agent</p>
         </div>
         
-        <div class="flex-1 p-8 overflow-y-auto space-y-6" id="chat-window">
+        <div class="flex-1 p-8 space-y-6 overflow-y-auto bg-gray-50" id="chat-window">
             <div class="bg-indigo-600 text-white p-5 rounded-2xl rounded-tl-none text-xs leading-relaxed font-medium shadow-xl">
-                안녕하세요! MD님. 판매자 데이터를 분석한 결과, <b>특정 시간대</b>에 트래픽이 집중되는 현상이 발견되었습니다. <br><br>
-                <b>판매자 000</b>의 전환 성과를 바탕으로 광고 예산을 재분배할까요?
+                MD님, <b>000 판매자</b>의 성장을 위한 전략 제안입니다. <br><br>
+                1. <b>수요 예측:</b> 다음 주 기온 상승으로 '시즌 상품 A'의 수요가 150% 증가할 것으로 예측됩니다. 재고 확보가 필요합니다. <br><br>
+                2. <b>프로모션 제안:</b> 현재 할인율 10%보다 <b>'1+1 패키지'</b> 구성 시 객단가가 22% 상승할 가능성이 높습니다. 제안서를 발송할까요?
+            </div>
+            <div class="bg-white border p-4 rounded-xl shadow-sm text-[11px]">
+                <p class="text-indigo-600 font-bold mb-2 uppercase tracking-tighter"><i class="fas fa-lightbulb mr-1"></i> 경쟁력 강화 팁</p>
+                현재 카테고리 내 최저가 대비 ₩500 비싼 상태이나, <b>배송 속도</b>가 압도적입니다. 가격 경쟁보다 '내일 도착' 키워드 선점을 추천합니다.
             </div>
         </div>
 
-        <div class="p-8 border-t bg-white">
-            <div class="flex flex-wrap gap-2 mb-6">
-                <button onclick="askAI('인구통계별 비중 요약해줘')" class="text-[10px] font-black bg-slate-100 px-3 py-1.5 rounded-full text-slate-500 hover:bg-indigo-600 hover:text-white transition-all uppercase"># 데모그래픽 분석</button>
-                <button onclick="askAI('관심상품 및 주문 전환 분석')" class="text-[10px] font-black bg-slate-100 px-3 py-1.5 rounded-full text-slate-500 hover:bg-indigo-600 hover:text-white transition-all uppercase"># 전환 데이터 요약</button>
+        <div class="p-6 border-t bg-white">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button onclick="askAI('카테고리 점유율 분석해줘')" class="text-[10px] font-black border border-slate-200 px-3 py-1.5 rounded-full text-slate-400 hover:text-indigo-600 hover:border-indigo-600 transition-all uppercase tracking-tighter"># 시장 점유율</button>
+                <button onclick="askAI('시즌별 수요 예측 보고서')" class="text-[10px] font-black border border-slate-200 px-3 py-1.5 rounded-full text-slate-400 hover:text-indigo-600 hover:border-indigo-600 transition-all uppercase tracking-tighter"># 수요 예측</button>
             </div>
             <div class="relative">
-                <input id="user-input" type="text" placeholder="데이터 쿼리 입력..." class="w-full bg-white border-2 border-slate-100 rounded-2xl pl-5 pr-14 py-4 text-xs font-bold focus:border-indigo-600 outline-none transition-all shadow-sm">
-                <button onclick="sendMessage()" class="absolute right-3 top-3 bg-slate-800 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-lg active:scale-95 transition-all">
-                    <i class="fas fa-arrow-up"></i>
+                <input id="user-input" type="text" placeholder="분석 쿼리 입력..." class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-4 py-4 text-xs font-bold focus:border-indigo-600 outline-none transition-all pr-12">
+                <button onclick="sendMessage()" class="absolute right-3 top-3 bg-slate-900 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-lg active:scale-95 transition-all">
+                    <i class="fas fa-paper-plane text-xs"></i>
                 </button>
             </div>
         </div>
     </aside>
 
     <script>
-        // Charts Initialization
+        // Tab System
+        function switchTab(e, tabId) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Charts
         const commonOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
 
-        new Chart(document.getElementById('trafficChart').getContext('2d'), {
+        new Chart(document.getElementById('growthChart'), {
             type: 'line',
-            data: {
-                labels: ['00시', '04시', '08시', '12시', '16시', '20시', '23시'],
-                datasets: [
-                    { label: 'Traffic', data: [300, 100, 450, 800, 550, 900, 750], borderColor: '#4f46e5', borderWidth: 4, pointRadius: 0, tension: 0.4, fill: false },
-                    { label: 'CVR', data: [5, 2, 8, 15, 12, 22, 18], borderColor: '#10b981', borderWidth: 2, borderDash: [5, 5], pointRadius: 0, tension: 0.4, fill: false, yAxisID: 'y1' }
-                ]
-            },
-            options: { ...commonOptions, scales: { y1: { position: 'right', grid: { display: false } } } }
+            data: { labels: ['3/3','3/4','3/5','3/6','3/7','3/8','3/9'], datasets: [
+                { label: 'Rev', data: [800, 750, 920, 880, 700, 950, 1100], borderColor: '#4f46e5', tension: 0.4, fill: true, backgroundColor: 'rgba(79, 70, 229, 0.05)', borderWidth: 4 }
+            ]}, options: commonOptions
         });
 
-        new Chart(document.getElementById('sourceChart').getContext('2d'), {
-            type: 'doughnut',
-            data: {
-                labels: ['A 채널', 'B 채널', 'C 채널', 'D 채널', '기타'],
-                datasets: [{ data: [50, 15, 10, 5, 20], backgroundColor: ['#1e293b', '#4f46e5', '#818cf8', '#c7d2fe', '#f1f5f9'], borderWidth: 0, cutout: '80%' }]
-            },
+        new Chart(document.getElementById('timeChart'), {
+            type: 'bar',
+            data: { labels: ['00시','06시','12시','18시','23시'], datasets: [{ data: [150, 50, 800, 600, 950], backgroundColor: '#6366f1' }] },
             options: commonOptions
         });
 
+        new Chart(document.getElementById('sourceChart'), {
+            type: 'doughnut',
+            data: { labels: ['검색', '광고', '다이렉트', '기타'], datasets: [{ data: [55, 25, 10, 10], backgroundColor: ['#4f46e5', '#818cf8', '#c7d2fe', '#f1f5f9'] }] },
+            options: { cutout: '80%', ...commonOptions }
+        });
+
         // AI Logic
-        function askAI(msg) { document.getElementById('user-input').value = msg; sendMessage(); }
+        function askAI(q) { document.getElementById('user-input').value = q; sendMessage(); }
         function sendMessage() {
             const input = document.getElementById('user-input');
-            const chatWindow = document.getElementById('chat-window');
+            const chat = document.getElementById('chat-window');
             if(!input.value) return;
-            const msg = input.value; input.value = '';
-            chatWindow.innerHTML += `<div class="bg-slate-100 text-slate-800 p-4 rounded-2xl rounded-tr-none text-xs font-bold ml-auto w-fit max-w-[85%] shadow-sm">${msg}</div>`;
+            chat.innerHTML += `<div class="bg-slate-800 text-white p-4 rounded-2xl rounded-tr-none text-[11px] font-bold ml-auto w-fit max-w-[85%] shadow-md mb-4">${input.value}</div>`;
+            const val = input.value; input.value = '';
             setTimeout(() => {
-                let res = "데이터를 매핑하고 있습니다...";
-                if(msg.includes('인구')) res = "<b>판매자 000</b>의 주 고객층은 2030 여성(00%)으로 확인됩니다. 전환율은 남성 고객군이 0.0%p 높게 측정되었습니다.";
-                else if(msg.includes('전환')) res = "관심 상품 등록 후 3일 이내 결제 전환 비율이 00%로 전주 대비 소폭 상승했습니다.";
-                chatWindow.innerHTML += `<div class="bg-indigo-600 text-white p-5 rounded-2xl rounded-tl-none text-xs shadow-xl">🤖 ${res}</div>`;
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }, 1000);
+                let res = "데이터 모델링 중...";
+                if(val.includes('예측')) res = "현재 카테고리 검색량이 급증하고 있어 <b>판매자 000</b>의 상품 노출 비중을 20% 확대할 것을 제안합니다. 예상 매출 기여액은 ₩000만 원입니다.";
+                chat.innerHTML += `<div class="bg-indigo-600 text-white p-5 rounded-2xl rounded-tl-none text-[11px] shadow-xl leading-relaxed">🤖 ${res}</div>`;
+                chat.scrollTop = chat.scrollHeight;
+            }, 800);
         }
     </script>
 </body>
